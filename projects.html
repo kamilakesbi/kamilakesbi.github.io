@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · Kamil Akesbi</title>
+  <meta name="description" content="Selected work by Kamil Akesbi: Deezer's AI music detection system, open-source speaker diarization at Hugging Face, and audio identification at scale.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Projects · Kamil Akesbi">
+  <meta property="og:description" content="Selected industry projects: AI music detection at Deezer, music communities, natural-language music search, and Diarizers at Hugging Face.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232442D8'/><g fill='%23F6F3EE'><rect x='7' y='13' width='3' height='6' rx='1.5'/><rect x='12' y='8' width='3' height='16' rx='1.5'/><rect x='17' y='11' width='3' height='10' rx='1.5'/><rect x='22' y='14' width='3' height='4' rx='1.5'/></g></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=46">
+  <script>
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="topbar">
+  <header class="nav wrap">
+      <a href="index.html" class="logo" aria-label="Home">k.akesbi</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="projects.html" class="active" aria-current="page">Projects</a>
+        <a href="research.html">Research</a>
+        <a href="open-source.html">Open source</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+        </button>
+      </nav>
+    </header>
+  </div>
+
+  <main>
+    <section class="page-head wrap">
+      <p class="eyebrow">Projects</p>
+      <h1 class="page-title">Selected <em>industry</em> projects.</h1>
+      <p class="lede">Projects and systems I've designed, built and shipped.</p>
+    </section>
+
+    <section class="wrap block proj-group">
+      <article class="proj" id="ai-detection" data-topic="audio">
+        <div class="cv-head proj-head">
+          <div class="proj-text">
+            <p class="proj-meta"><span>2024 – now · Deezer</span><span class="proj-badge">Case study</span></p>
+            <h3>AI music detection</h3>
+            <p class="proj-sum">Spotting songs made by AI among the ~200,000 tracks uploaded to Deezer every day.</p>
+            <div class="tags"><span class="tg t-audio">Audio</span><span class="tg t-prod">Production</span><span class="tg t-research">Research</span></div>
+            <div class="case-meta-row">
+              <div><span>My role</span>Senior ML Engineer, leading the production initiatives</div>
+              <div><span>In collaboration with</span>Researchers, ML engineers and software engineers</div>
+              <div><span>Stack</span>PyTorch, GCP, BigQuery, Spark, Airflow, Kafka, Kubernetes, Grafana</div>
+            </div>
+          </div>
+          <button class="job-toggle" type="button" aria-expanded="false" aria-controls="ai-detection-body" aria-label="Show details: AI music detection"><svg class="chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        </div>
+        <div class="section-body job-body collapsed proj-body" id="ai-detection-body"><div class="section-inner">
+          <section class="case-row">
+            <h4 class="case-label">The problem</h4>
+            <div class="case-content">
+            <p>AI generators like Suno and Udio made it possible to generate a full song in seconds. Uploads of fully AI-generated tracks to Deezer grew from about <strong>10% of daily deliveries in January 2025</strong> to <strong>more than half at the June 2026 peak</strong>. Left unchecked, they dilute recommendations and the royalty pool, and listeners can't tell the difference.</p>
+            <figure class="growth" aria-labelledby="growth-cap">
+              <div class="growth-bars" role="img" aria-label="Fully AI-generated tracks delivered to Deezer per day: about 10,000 in January 2025, about 75,000 in April 2026, about 90,000 in June 2026.">
+                <div class="gb" style="--v: 11%"><span class="gb-val">~10K</span><span class="gb-bar" data-tip="Jan 2025 · ~10K tracks/day · ~10% of uploads"></span><span class="gb-lab">Jan 2025</span></div>
+                <div class="gb" style="--v: 83%"><span class="gb-val">~75K</span><span class="gb-bar" data-tip="Apr 2026 · ~75K tracks/day · 44% of uploads"></span><span class="gb-lab">Apr 2026</span></div>
+                <div class="gb" style="--v: 100%"><span class="gb-val">~90K</span><span class="gb-bar" data-tip="Jun 2026 · ~90K tracks/day · 50%+ of uploads at peak"></span><span class="gb-lab">Jun 2026</span></div>
+              </div>
+              <figcaption id="growth-cap">Fully AI-generated tracks delivered to Deezer per day. Sources: <a href="https://newsroom-deezer.com/2025/01/deezer-deploys-cutting-edge-ai-detection-tool-for-music-streaming/">Deezer, Jan 2025</a>, <a href="https://newsroom-deezer.com/2026/04/ai-generated-tracks-represent-44-of-new-uploaded-music/">Apr 2026</a>, <a href="https://www.musicbusinessworldwide.com/90000-ai-tracks-flood-deezer-daily-passing-half-of-new-music-uploads-for-the-first-time/">MBW</a>.</figcaption>
+            </figure>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">How detection works</h4>
+            <div class="case-content">
+            <p>Upsampling layers in AI music generators leave a trace in the audio they generate: small peaks at perfectly regular intervals in the frequency spectrum, which we call a fakeprint. Our <a href="research.html">ISMIR 2025 Best Paper</a> explains where they come from, and the core detection model builds on this idea.</p>
+            <figure class="fakeprint" aria-labelledby="fakeprint-cap">
+              <div class="fakeprint-head">
+                <p class="spectrum-kicker">Can you spot the AI?</p>
+                <div class="seg" role="group" aria-label="Spectrum source">
+                  <button type="button" data-mode="human" aria-pressed="true">Human-made</button>
+                  <button type="button" data-mode="ai" aria-pressed="false">AI-generated</button>
+                </div>
+              </div>
+              <canvas id="spectrum" height="150" aria-hidden="true"></canvas>
+              <p class="fp-caption" id="spectrumStatus"><i class="sw sw-real"></i>Human-made: no regular pattern</p>
+              <figcaption id="fakeprint-cap">Frequency spectrum of a human-made and an AI-generated track.</figcaption>
+            </figure>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">What I built in production</h4>
+            <div class="case-content">
+            <p>I lead the production initiatives: taking the system from research prototype to a service that scans every new release, and keeping it accurate as new generators appear.</p>
+            <div class="pipeline" aria-label="System overview">
+              <div class="pipe-step"><span class="pipe-n">1</span><strong>Ingest</strong><span>~200K new tracks a day</span></div>
+              <div class="pipe-arrow" aria-hidden="true">→</div>
+              <div class="pipe-step"><span class="pipe-n">2</span><strong>Fingerprint model</strong><span>spots the artifacts generators leave</span></div>
+              <div class="pipe-arrow" aria-hidden="true">→</div>
+              <div class="pipe-step"><span class="pipe-n">3</span><strong>Source classifiers</strong><span>7+ generators: Suno, ElevenLabs, Lyria…</span></div>
+              <div class="pipe-arrow" aria-hidden="true">→</div>
+              <div class="pipe-step pipe-out"><span class="pipe-n">4</span><strong>Rules engine</strong><span>"AI-generated" album tag, removed from recommendations</span></div>
+            </div>
+            <div class="keep">
+              <p class="keep-title"><span aria-hidden="true">↻</span> Keeping it accurate</p>
+              <p class="keep-sub">New generators and new versions come out every few months. Detection only works if it keeps up.</p>
+              <div class="keep-grid">
+                <div><strong>Fresh data</strong><span>We collect samples from AI generators to identify drifts and retrain.</span></div>
+                <div><strong>Drift monitoring</strong><span>Alerts when the detector's behavior on new uploads starts to shift.</span></div>
+                <div><strong>Fast retraining</strong><span>Retrain from scratch and re-process the full 200M-track catalog in 30 minutes.</span></div>
+                <div><strong>New-model discovery</strong><span>Zero-shot clustering surfaces tracks from generators we've never seen.</span></div>
+              </div>
+            </div>
+            <p class="contrib-title">My contributions</p>
+            <ul class="ticks">
+              <li><strong>Packaged and deployed the <a href="https://arxiv.org/abs/2506.19108">core fingerprint model</a></strong>, processing ~200K tracks a day.</li>
+              <li><strong>Trained and deployed multi-class source classifiers</strong> covering 7+ generators.</li>
+              <li><strong>Reached &gt;99.5% recall at &lt;0.01% false positive rate</strong> by scaling the training database 10× and adopting modern deep learning techniques.</li>
+              <li><strong>Defined the rules engine</strong> behind the <a href="https://newsroom-deezer.com/2025/06/deezer-launches-worlds-first-ai-tagging-system-for-music-streaming/">"AI-generated" album tag</a>, now on 14M+ albums.</li>
+              <li><strong>Built drift monitoring and retraining pipelines</strong>, and streamlined research-to-production so the full 200M-track catalog can be retrained on and processed in 30 minutes.</li>
+            </ul>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Research I brought to internal tools</h4>
+            <div class="case-content">
+            <p>Detection has to keep up with people trying to evade it and with new generators. I deployed internal tools based on three recent Deezer Research methods, which our team uses for real-time manual investigation. Pick one to see how it works.</p>
+            <div class="rtabs" role="tablist" aria-label="Research methods">
+              <button role="tab" type="button" id="tab-speed" aria-controls="panel-speed" aria-selected="true">Speed changes</button>
+              <button role="tab" type="button" id="tab-hybrid" aria-controls="panel-hybrid" aria-selected="false" tabindex="-1">Hybrid tracks</button>
+              <button role="tab" type="button" id="tab-zero" aria-controls="panel-zero" aria-selected="false" tabindex="-1">New generators</button>
+            </div>
+            <div class="rpanel" role="tabpanel" id="panel-speed" aria-labelledby="tab-speed">
+            <p>A simple trick fools most AI-music detectors: speed the track up or slow it down. Every frequency is stretched by the same factor, so the telltale peaks move away from where the detector expects them. I deployed internal prototypes of a Deezer Research method that solves this by design.</p>
+            <figure class="speed" aria-labelledby="speed-cap">
+              <div class="speed-control">
+                <label for="speedSlider">Speed change</label>
+                <input type="range" id="speedSlider" min="0.8" max="1.25" step="0.01" value="1.12">
+                <output id="speedValue" for="speedSlider">1.12×</output>
+              </div>
+              <div class="speed-panel">
+                <div class="speed-head"><span class="speed-axis">Linear frequency axis</span><span class="speed-status" id="linStatus"></span></div>
+                <canvas id="speedLinear" height="120" aria-hidden="true"></canvas>
+                <p class="speed-note">The peaks spread apart. A detector looking at fixed positions (dashed lines) misses them.</p>
+              </div>
+              <div class="speed-panel">
+                <div class="speed-head"><span class="speed-axis">Log frequency axis</span><span class="speed-status ok" id="logStatus"></span></div>
+                <canvas id="speedLog" height="120" aria-hidden="true"></canvas>
+                <p class="speed-note">Stretching becomes sliding. One learned filter (amber) slides along the axis and finds the pattern wherever it lands.</p>
+              </div>
+              <figcaption id="speed-cap">Where the filter matches also tells you the speed change that was applied. Method from <a href="https://arxiv.org/abs/2607.27454"><em>Improved Robustness in AI-Generated Music Detection</em></a> (Dugelay et al., Deezer Research, 2026).</figcaption>
+            </figure>
+          </div>
+            <div class="rpanel" role="tabpanel" id="panel-hybrid" aria-labelledby="tab-hybrid" hidden>
+            <p>Not every AI track is fully generated. Producers increasingly mix an AI-generated vocal over a human-made beat, or the other way around. Separating the stems first doesn't help, because separation wipes out the artifacts. A Deezer Research method, which I deployed internally, keeps the detector on the full mix and uses separation only to measure how loud each stem is, chunk by chunk.</p>
+            <figure class="stems" aria-labelledby="stems-cap">
+              <div class="seg" role="group" aria-label="Which part of the track is AI-generated">
+                <button type="button" data-stem="voc" aria-pressed="true">AI vocals</button>
+                <button type="button" data-stem="acc" aria-pressed="false">AI accompaniment</button>
+                <button type="button" data-stem="none" aria-pressed="false">All human</button>
+              </div>
+              <div class="stems-lanes">
+                <div class="stems-labels" aria-hidden="true">
+                  <span>Detector score on the mix</span>
+                  <span>Vocals loudness</span>
+                  <span>Accompaniment loudness</span>
+                </div>
+                <canvas id="stemsCanvas" height="200" aria-hidden="true"></canvas>
+              </div>
+              <p class="speed-note">Each bar is a few seconds of the track. Watch which stem the detector score follows: it rises and falls with the AI part.</p>
+              <div class="stems-verdict" id="stemsVerdict" aria-live="polite"></div>
+              <figcaption id="stems-cap">Combining the chunk scores with each stem's loudness, then averaging over the track, says which stem is AI. The numbers here are illustrative. Method from <a href="https://arxiv.org/abs/2607.26874"><em>Detection of AI-generated stems within hybrid human-AI music</em></a> (Rigaud et al., Deezer Research, 2026).</figcaption>
+            </figure>
+          </div>
+            <div class="rpanel" role="tabpanel" id="panel-zero" aria-labelledby="tab-zero" hidden>
+            <p>A detector only knows the AI generators it was trained on, and new ones come out every few months. To find them, we cluster new uploads by their fakeprint, with no labels. Tracks from the same generator end up together, so a new one shows up as its own cluster. I deployed the tool the team uses to review these clusters every week.</p>
+            <figure class="zs" aria-labelledby="zs-cap">
+              <p class="zs-hint">This week's uploads, grouped by their artifact fingerprint. <strong>Click a cluster to look inside.</strong></p>
+              <canvas id="zsCanvas" height="300" aria-hidden="true"></canvas>
+              <div class="seg zs-pick" role="group" aria-label="Cluster to inspect">
+                <button type="button" data-cluster="real" aria-pressed="false">Real music</button>
+                <button type="button" data-cluster="suno" aria-pressed="true">Suno</button>
+                <button type="button" data-cluster="udio" aria-pressed="false">Udio</button>
+                <button type="button" data-cluster="new" aria-pressed="false">New · unlabeled</button>
+              </div>
+              <div class="zs-fp">
+                <div class="zs-fp-head"><span>Mean fingerprint of the cluster</span><span class="zs-legend"><span><i class="sw sw-ai"></i>its peaks</span><span><i class="zs-dash"></i><span id="zsKnown">known Suno pattern</span></span></span></div>
+                <canvas id="zsFp" height="130" aria-hidden="true"></canvas>
+              </div>
+              <div class="zs-checks" id="zsChecks" aria-live="polite"></div>
+              <figcaption id="zs-cap">Each dot is one uploaded track; positions and fingerprints are illustrative. Method from <a href="https://arxiv.org/abs/2607.25530"><em>Finding the noise: Zero-shot AI Music Detection</em></a> (Afchar &amp; Hennequin, Deezer Research, 2026).</figcaption>
+            </figure>
+            </div>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Impact and recognition</h4>
+            <div class="case-content">
+            <div class="stats stats-3">
+              <div class="stat"><span class="stat-n">&gt;99.5%</span><span class="stat-l">recall at &lt;0.01% false positive rate</span></div>
+              <div class="stat"><span class="stat-n">42M+</span><span class="stat-l">AI tracks flagged, Jan 2025 – Aug 2026</span></div>
+              <div class="stat"><span class="stat-n">14M+</span><span class="stat-l">albums tagged "AI-generated"</span></div>
+            </div>
+            <ol class="timeline-impact">
+              <li><span class="when">Jan 2025</span><div><p>Detection goes live. Fully AI-generated tracks are removed from algorithmic and editorial recommendations.</p><span class="tl-links"><a href="https://newsroom-deezer.com/2025/01/deezer-deploys-cutting-edge-ai-detection-tool-for-music-streaming/">Deezer newsroom</a></span></div></li>
+              <li><span class="when">Jun 2025</span><div><p>Deezer becomes the first streaming platform to explicitly label AI-generated music.</p><span class="tl-links"><a href="https://newsroom-deezer.com/2025/06/deezer-launches-worlds-first-ai-tagging-system-for-music-streaming/">Deezer newsroom</a></span></div></li>
+              <li><span class="when">Sep 2025</span><div><p>Our paper explaining the artifacts behind detection wins <strong>Best Paper at ISMIR 2025</strong>.</p><span class="tl-links"><a href="https://arxiv.org/abs/2506.19108">Paper</a><a href="https://ismir2025program.ismir.net/poster_229.html">ISMIR 2025</a></span></div></li>
+              <li><span class="when">Jun 2026</span><div><p>The detector powers a free public tool that scans playlists on 20 streaming platforms.</p><span class="tl-links"><a href="https://techcrunch.com/2026/06/11/deezers-new-tool-can-identify-ai-music-from-spotify-apple-music-and-others/">TechCrunch</a></span></div></li>
+              <li><span class="when">Jul 2026</span><div><p>AI tracks pass half of all daily uploads, about 90,000 a day, and detection keeps up.</p><span class="tl-links"><a href="https://newsroom-deezer.com/2026/07/ai-music-exceeds-50-percent-daily-uploads-deezer/">Deezer newsroom</a><a href="https://www.musicbusinessworldwide.com/90000-ai-tracks-flood-deezer-daily-passing-half-of-new-music-uploads-for-the-first-time/">Music Business Worldwide</a></span></div></li>
+              <li><span class="when">Sep 2026</span><div><p>Billboard France's <strong>Innovation Prize</strong> at the first Power Players awards.</p><span class="tl-links"><a href="https://www.phonandroid.com/?p=2710154">Phonandroid</a></span></div></li>
+              <li><span class="when">Oct 2026</span><div><p>Named one of <strong>TIME's Best Inventions of 2026</strong>. Deezer also announces a toggle that lets listeners filter AI music out.</p><span class="tl-links"><a href="https://time.com/collection/best-inventions/2026/deezer-ai-music-detector/">TIME</a><a href="https://newsroom-deezer.com/2026/10/ai-music-detection-time-best-inventions-2026/">Deezer newsroom</a><a href="https://techcrunch.com/2026/10/14/deezer-will-soon-let-you-filter-out-ai-generated-music/">TechCrunch</a></span></div></li>
+            </ol>
+            </div>
+          </section>
+        </div></div>
+      </article>
+      <article class="proj" id="communities" data-topic="reco">
+        <div class="cv-head proj-head">
+          <div class="proj-text">
+            <p class="proj-meta"><span>2024 – now · Deezer</span></p>
+            <h3>Stable music communities for recommendation</h3>
+            <p class="proj-sum">Can we identify communities of tracks that stay together from one week to the next in the collaborative embedding space, and what do they tell us about the structure of our embedding space?</p>
+            <div class="tags"><span class="tg t-content">Recommendation</span><span class="tg t-content">Content understanding</span></div>
+            <div class="case-meta-row">
+              <div><span>Methods</span>SVD embeddings, orthogonal Procrustes, k-means, graph community detection (Louvain, Leiden, InfoMap)</div>
+            </div>
+          </div>
+          <button class="job-toggle" type="button" aria-expanded="false" aria-controls="communities-body" aria-label="Show details: Stable music communities for recommendation"><svg class="chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        </div>
+        <div class="section-body job-body collapsed proj-body" id="communities-body"><div class="section-inner">
+          <section class="case-row">
+            <h4 class="case-label">The problem</h4>
+            <div class="case-content">
+            <p>Every week, Deezer computes SVD embeddings from a matrix of track co-occurrences in playlists. The embedding space is then cut into 5,000 clusters with k-means. Those clusters power Flow, and <a href="https://newsroom-deezer.com/2026/02/deezer-launches-flow-tuner-personalized-recommendations/">Flow Tuner</a>, where listeners pick the genres they want.</p>
+            <p>This setup raises three issues.</p>
+            <ul class="ticks">
+              <li>The embeddings move every week, and the clusters move with them. Search indexes have to be updated with each new set of embeddings. What happens if embeddings and indexes fall out of sync across servers?</li>
+              <li>Many clusters have no genre label, which keeps them out of Flow Tuner. Can we find regions of the space stable enough to label first?</li>
+              <li>Clusters ignore the structure of the space and over-partition it. The silhouette score points to around 600 clusters rather than 5,000, so dense regions get split arbitrarily.</li>
+            </ul>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Step 1 · Aligning embeddings to find stable tracks</h4>
+            <div class="case-content">
+            <p>SVD runs from scratch every week, so embeddings from two successive weeks can't be compared directly. The same track can get different coordinates even if its neighbors barely changed. To compare the two spaces, both weeks' embeddings have to be aligned.</p>
+            <p>We do this with Orthogonal Procrustes, which already runs in production. It finds the rotation R that best maps next week's embeddings onto this week's:</p>
+            <p class="formula">R* = argmin<sub>R</sub> ‖ X<sub>t+1</sub> R − X<sub>t</sub> ‖<sub>F</sub> &nbsp; with &nbsp; RᵀR = I</p>
+            <p>Because R is orthogonal, it can rotate or flip the space but not distort it, so angles and norms are preserved. After alignment, we can compare each track with its position the week before and see which tracks moved.</p>
+            <ul class="ticks">
+              <li>The first dimensions of the SVD are stable up to a sign flip. Deeper ones are noisier.</li>
+              <li>Popular tracks align best: the most streamed tracks keep the most neighbors.</li>
+              <li>Recent tracks are less stable on average.</li>
+              <li>Tuning the alignment doesn't help much.</li>
+            </ul>
+            <div class="stats stats-2 mini-stats">
+              <div class="stat"><span class="stat-n">588K+</span><span class="stat-l">tracks are extremely stable</span></div>
+              <div class="stat"><span class="stat-n">0.03%</span><span class="stat-l">of streams at risk during a server desynchronization</span></div>
+            </div>
+            <p>So the embeddings hold up well, and a short desynchronization would affect very few streams. That raises the next question: are the clusters built on top of them just as stable?</p>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Step 2 · Group the clusters into communities</h4>
+            <div class="case-content">
+            <p>The clusters are less stable than the embeddings they're built on. k-means draws borders through dense regions, so tracks near a border often switch clusters from one week to the next.</p>
+            <p>We group neighboring clusters into larger communities: a track that changes cluster usually stays in the same community. We link clusters whose centroids are close, then let a community detection algorithm find groups of clusters that belong together.</p>
+            <p>We compared Louvain, Leiden and InfoMap, and kept InfoMap, which gave the most stable communities: <strong>~1,200 communities from the 5,000 clusters</strong>. Flow keeps using the same clusters: communities sit on top as a second level.</p>
+            <figure class="comm" aria-labelledby="comm-cap">
+              <div class="seg comm-pick" role="group" aria-label="View">
+                <button type="button" data-view="clusters" aria-pressed="true">Clusters</button>
+                <button type="button" data-view="comm" aria-pressed="false">Communities</button>
+              </div>
+              <div class="comm-pair">
+                <div><canvas id="vorW1" height="260" aria-hidden="true"></canvas><p class="comm-week">Week 1</p></div>
+                <div><canvas id="vorW2" height="260" aria-hidden="true"></canvas><p class="comm-week">Week 2</p></div>
+              </div>
+              <p class="comm-status" id="commStatus" aria-live="polite"></p>
+              <figcaption id="comm-cap">Each cell is a cluster and each dot a track. The amber dot is the track we follow, and the amber area is its cluster or community. The geometry is illustrative.</figcaption>
+            </figure>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Result</h4>
+            <div class="case-content">
+            <p>A track is "stable" if it stays grouped with most of the same tracks from one week to the next. Measured that way (stability threshold 0.85):</p>
+            <div class="stats stats-3">
+              <div class="stat"><span class="stat-n">1.2K</span><span class="stat-l">communities grouping the 5K clusters</span></div>
+              <div class="stat"><span class="stat-n">0.62</span><span class="stat-l">recall of stable tracks with communities, vs 0.38 with clusters</span></div>
+              <div class="stat"><span class="stat-n">~2×</span><span class="stat-l">more stable tracks: ~1.25M vs ~600K</span></div>
+            </div>
+            <ul class="ticks">
+              <li><strong>Stable over time.</strong> The gain holds over several consecutive weeks, not just two.</li>
+              <li><strong>Flow is untouched.</strong> Communities sit on top of the existing clusters as a second level.</li>
+            </ul>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Communities that mean something</h4>
+            <div class="case-content">
+            <p>Communities often share a genre, a language or a country, even though they were built only from listening patterns. Some revealed <strong>regional genres missing from Flow Tuner</strong>; others showed <strong>existing genres whose coverage could grow</strong>. Editors can now label them.</p>
+            <div class="comm-cards">
+              <div class="comm-card"><span class="comm-kind">Regional genre</span><strong>Colombian vallenato</strong><span class="comm-where">Colombia</span><span class="comm-facts">4.9K tracks · 5 clusters</span></div>
+              <div class="comm-card"><span class="comm-kind">Regional genre</span><strong>Italian music</strong><span class="comm-where">Italy</span><span class="comm-facts">21K tracks · 27 clusters</span></div>
+              <div class="comm-card"><span class="comm-kind">Genre to expand</span><strong>Arabic music</strong><span class="comm-where">Arabic-speaking countries</span><span class="comm-facts">28K tracks · 36 clusters</span></div>
+              <div class="comm-card"><span class="comm-kind">Genre to expand</span><strong>Metal</strong><span class="comm-where">Worldwide</span><span class="comm-facts">68K tracks · 140 clusters</span></div>
+            </div>
+            <p class="comm-tools">Internal pages let the team browse every community: its clusters, top genres and countries, stability, and track list.</p>
+            </div>
+          </section>
+        </div></div>
+      </article>
+      <article class="proj" id="jam" data-topic="research">
+        <div class="cv-head proj-head">
+          <div class="proj-text">
+            <p class="proj-meta"><span>2025 · Deezer</span></p>
+            <h3>Ask for music in your own words</h3>
+            <p class="proj-sum">A prototype that turns requests like "upbeat songs for a rainy Sunday" into a playlist.</p>
+            <div class="tags"><span class="tg t-research">Research</span><span class="tg t-research">Prototyping</span></div>
+          </div>
+          <button class="job-toggle" type="button" aria-expanded="false" aria-controls="jam-body" aria-label="Show details: Ask for music in your own words"><svg class="chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        </div>
+        <div class="section-body job-body collapsed proj-body" id="jam-body"><div class="section-inner">
+          <section class="case-row">
+            <h4 class="case-label">The problem</h4>
+            <div class="case-content">
+            <p>People want to ask for music the way they'd ask a friend: "upbeat songs for a rainy Sunday" or "something like my Friday playlist, but calmer". Large language models can understand such requests, but they're too slow and costly to run for every listener.</p>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">What I did</h4>
+            <div class="case-content">
+            <ul class="ticks">
+              <li>Prototyped <a href="https://arxiv.org/abs/2507.15826"><em>Just Ask for Music (JAM)</em></a>, a lightweight Deezer Research approach to natural-language, personalized music recommendation.</li>
+              <li>Rebuilt the datasets and pipelines for production, optimized the models, and tested what breaks on real-world requests.</li>
+              <li>Deployed a working query-to-playlist prototype.</li>
+            </ul>
+            <p class="proj-soon">A fuller write-up is coming soon.</p>
+            </div>
+          </section>
+        </div></div>
+      </article>
+      <article class="proj" id="diarizers" data-topic="audio">
+        <div class="cv-head proj-head">
+          <div class="proj-text">
+            <p class="proj-meta"><span>2024 · Hugging Face</span><span class="proj-badge">Case study</span></p>
+            <h3>Diarizers: who spoke when?</h3>
+            <p class="proj-sum">An open-source library for building speaker diarization models.</p>
+            <div class="tags"><span class="tg t-audio">Speaker diarization</span><span class="tg t-prod">Engineering</span></div>
+          </div>
+          <button class="job-toggle" type="button" aria-expanded="false" aria-controls="diarizers-body" aria-label="Show details: Diarizers: who spoke when?"><svg class="chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        </div>
+        <div class="section-body job-body collapsed proj-body" id="diarizers-body"><div class="section-inner">
+          <section class="case-row">
+            <h4 class="case-label">The problem</h4>
+            <div class="case-content">
+            <p><strong>Speaker diarization</strong> answers "who spoke when?" in a recording: essential for meeting notes, podcasts and call analysis. Open models exist (pyannote), but adapting them to a new language or domain is hard, and conversations labeled with every speaker's timestamps are rare and expensive.</p>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">What I built</h4>
+            <div class="case-content">
+            <ul class="ticks">
+              <li><strong>Lead developer of <a href="https://github.com/huggingface/diarizers">Diarizers</a></strong>, a library to fine-tune pyannote diarization models with the Hugging Face ecosystem. On Japanese phone calls, about 5 minutes of fine-tuning on a single GPU cut the error rate from 25% to 18%.</li>
+              <li><strong>Published fine-tuned models in 5 languages</strong> and diarization datasets on the Hub (<a href="https://huggingface.co/diarizers-community">diarizers-community</a>), with tutorial notebooks.</li>
+            </ul>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Making synthetic training data</h4>
+            <div class="case-content">
+            <p>Since labeled conversations are scarce, I built a pipeline that <strong>generates synthetic conversations</strong> from single-speaker recordings, which are available in large quantities in almost every language.</p>
+            <div class="synth" aria-label="How the synthetic diarization pipeline works">
+              <div class="synth-step">
+                <span class="pipe-n">1</span><strong>Single-speaker clips</strong>
+                <div class="synth-clips"><span style="--w:38%">A</span><span style="--w:28%">B</span><span style="--w:46%">C</span><span style="--w:22%">A</span><span style="--w:34%">B</span></div>
+                <em>e.g. Common Voice, any language</em>
+              </div>
+              <div class="pipe-arrow" aria-hidden="true">→</div>
+              <div class="synth-step">
+                <span class="pipe-n">2</span><strong>Arrange into a conversation</strong>
+                <div class="synth-timeline">
+                  <div><b>A</b><i style="left:0;width:24%"></i><i style="left:62%;width:16%"></i></div>
+                  <div><b>B</b><i style="left:20%;width:22%"></i><i style="left:80%;width:18%"></i></div>
+                  <div><b>C</b><i style="left:46%;width:22%"></i></div>
+                </div>
+                <em>random overlaps and silences</em>
+              </div>
+              <div class="pipe-arrow" aria-hidden="true">→</div>
+              <div class="synth-step">
+                <span class="pipe-n">3</span><strong>Make it sound real</strong>
+                <div class="synth-chips"><span>Background noise</span><span>Room reverb</span><span>Volume changes</span></div>
+                <em>audio + exact "who spoke when" labels</em>
+              </div>
+            </div>
+            <p>Because every clip is placed on purpose, the labels come for free: the dataset knows exactly who speaks when, overlaps included. The pipeline ships in Diarizers, and I used it to publish <a href="https://huggingface.co/datasets/diarizers-community/synthetic-speaker-diarization-dataset">synthetic diarization datasets</a> on the Hub.</p>
+            </div>
+          </section>
+          <section class="case-row">
+            <h4 class="case-label">Links</h4>
+            <div class="case-content">
+            <p class="proj-links"><a href="https://github.com/huggingface/diarizers">GitHub</a><a href="https://huggingface.co/diarizers-community">Models and datasets</a><a href="open-source.html">All my open-source work</a></p>
+            </div>
+          </section>
+        </div></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <p class="footer-big">Want to get in touch?</p>
+    <a class="footer-mail" href="mailto:kamil.akesbi@gmail.com">kamil.akesbi@gmail.com</a>
+    <ul class="footer-links">
+      <li><a href="https://www.linkedin.com/in/kamil-akesbi-19a98414a/">LinkedIn</a></li>
+      <li><a href="https://github.com/kamilakesbi">GitHub</a></li>
+    </ul>
+    <p class="footer-small">© 2026 Kamil Akesbi · Paris</p>
+  </footer>
+
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+  <script src="main.js?v=46"></script>
+</body>
+</html>
